@@ -8,7 +8,7 @@ using namespace std::chrono_literals;
 #define KeyPressed(x) if(GetAsyncKeyState(x))
 LRESULT __stdcall hkWndProc::hkWndProc(HWND hWnd, uint32_t msg, WPARAM wPrm, LPARAM lPrm) {
 	ClassPointers::cTimerMgr->updateTimers();
-	ClassPointers::cTimerMgr->addTimer("MainTimer", 70ms, [=] {
+	ClassPointers::cTimerMgr->addTimer("MainTimer", 120ms, [=] {
 		KeyPressed(88) //X Key
 			ClassPointers::cDX->bLockMouseOnOpen = !ClassPointers::cDX->bLockMouseOnOpen;
 		KeyPressed(115) //F4 Key

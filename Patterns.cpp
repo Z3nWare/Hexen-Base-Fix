@@ -9,13 +9,21 @@ void PatternScan::ScanPatterns() {
 	});
 
 	main_batch.add("WNPC", "48 8B 0D ? ? ? ? 48 8D 55 EF FF 15", [this](ptr_manage callback) {
-		pWndProc = callback.add(-0x355).as<function_types::tWndProc>();
+		pWndProc = callback.add(-0x385).as<function_types::tWndProc>();
 	});
 	
 	main_batch.add("GLT", "48 89 5C 24 ? 57 48 83 EC 20 48 8B DA 48 8B F9 48 85 D2 75 44 E8", [this](ptr_manage callback) {
 		pGetLabelText = callback.as<function_types::tGetLabelText>();
 	});
+
+	main_batch.add("FV", "83 79 18 ? 48 8B D1 74 4A FF 4A 18", [this](ptr_manage callback) {
+		pFixVectors = callback.as<function_types::tFixVectors>();
+	});
 	
+	main_batch.add("FC", "F3 0F 10 0D ? ? ? ? 44 89 6B 08", [this](ptr_manage callback) {
+		pFrameCount = callback.add(4).rip(4).add(-8).as<std::uint32_t*>();
+	});
+
 	main_batch.add("DXSN", "48 8B 0D ? ? ? ? 48 8D 55 A0 48 8B 01", [this](ptr_manage callback) {
 		pSwapchain = callback.add(3).rip(4).as<IDXGISwapChain*&>();
 	});

@@ -23,7 +23,7 @@
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{70b75961-6912-4738-89be-3e966d96260c}</ProjectGuid>
     <RootNamespace>Grim</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
     <ProjectName>Hexen</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -83,8 +83,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Users\aki\source\repos\Grim\ImGui;C:\Users\aki\source\repos\Grim\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\aki\source\repos\Grim\Libraries;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\ImGui;$(SolutionDir)\Includes;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Libraries;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -165,7 +165,6 @@
     <ClCompile Include="CreatedHooks\hkWndProc.cpp" />
     <ClCompile Include="CreatedThreads\ctDX.cpp" />
     <ClCompile Include="CreatedThreads\ctNative.cpp" />
-    <ClCompile Include="fiber_pool.cpp" />
     <ClCompile Include="fonts.hpp" />
     <ClCompile Include="Helpers.cpp" />
     <ClCompile Include="Invoker.cpp" />
@@ -182,8 +181,6 @@
     <ClCompile Include="Memory\vmt_hook.cpp" />
     <ClCompile Include="Patterns.cpp" />
     <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="Script.cpp" />
-    <ClCompile Include="script_mgr.cpp" />
     <ClCompile Include="TimerManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -191,7 +188,6 @@
     <ClInclude Include="CreatedHooks\hooktables.hpp" />
     <ClInclude Include="CreatedThreads\threadtable.hpp" />
     <ClInclude Include="Crossmap.hpp" />
-    <ClInclude Include="fiber_pool.hpp" />
     <ClInclude Include="GTA-Rage\ScrNative.hpp" />
     <ClInclude Include="GTA-Rage\Vector.hpp" />
     <ClInclude Include="Helpers.hpp" />
@@ -212,7 +208,7 @@
     <ClInclude Include="Renderer.hpp" />
     <ClInclude Include="return_spoof.hpp" />
     <ClInclude Include="Script.hpp" />
-    <ClInclude Include="script_mgr.hpp" />
+    <ClInclude Include="ScriptManager.hpp" />
     <ClInclude Include="TimerManager.hpp" />
   </ItemGroup>
   <ItemGroup>

@@ -19,6 +19,7 @@ public:
 	function_types::tGetLabelText pGetLabelText;
 	function_types::tFixVectors pFixVectors;
 
+	std::uint32_t* pFrameCount;
 	IDXGISwapChain* pSwapchain;
 	rage::scrNativeRegistration** pNativeReg;
 	PUCHAR pRegisterSpoof;

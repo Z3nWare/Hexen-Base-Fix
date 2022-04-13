@@ -1,10 +1,12 @@
 #pragma once
 #include "threadtable.hpp"
+#include "../Natives.hpp"
 
 /*Main Thread for Executing Natives*/
 void CreatedThreads::NativeThread() {
-	for (;;) {
-		/*Call Graphics Shit Here ig*/
-		script::get_current()->yield();
-	}	
+	while (true)
+	{
+		if (ClassPointers::cDX->bGuiOpen) { PAD::DISABLE_ALL_CONTROL_ACTIONS(0); }
+		Script::GetCurrent()->ScriptYield();
+	}
 }

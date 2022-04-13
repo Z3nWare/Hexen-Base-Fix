@@ -3,27 +3,61 @@
 #include <optional> 
 #include <Windows.h>
 
-class script {
+class Script {
 public:
-	using func_t = void(*)();
+	using Helper = void(*)();
 public:
-	explicit script(func_t func, std::optional<std::size_t> stack_size = std::nullopt);
-	~script();
+	explicit Script(Helper func, std::optional<std::size_t> StackSize = std::nullopt) : m_Function(func), m_ScriptFiber(nullptr), m_MainFiber(nullptr)
+	{
+		m_ScriptFiber = CreateFiber(StackSize.has_value() ? StackSize.value() : 0, [](void* param) {
+			auto CurrentScript = static_cast<Script*>(param);
+			CurrentScript->FiberFunc();
+			}, this);
+	}
+	~Script()
+	{
+		if (m_ScriptFiber) DeleteFiber(m_ScriptFiber);
+	}
 
-	void tick();
-	void yield(std::optional<std::chrono::high_resolution_clock::duration> time = std::nullopt);
-	static script* get_current();
-	static void script_exception_handler(PEXCEPTION_POINTERS exp);
+	void Tick()
+	{
+		m_MainFiber = GetCurrentFiber();
+		if (!m_WakeTime.has_value() || m_WakeTime.value() <= std::chrono::high_resolution_clock::now()) {
+			SwitchToFiber(m_ScriptFiber);
+		}
+	}
+
+	void ScriptYield(std::optional<std::chrono::high_resolution_clock::duration> Time = std::nullopt)
+	{
+		if (Time.has_value()) {
+			m_WakeTime = std::chrono::high_resolution_clock::now() + Time.value();
+		}
+		else {
+			m_WakeTime = std::nullopt;
+		}
+		SwitchToFiber(m_MainFiber);
+	}
+
+	static Script* GetCurrent()
+	{
+		return static_cast<Script*>(GetFiberData());
+	}
 private:
-	void fiber_func();
+	void FiberFunc()
+	{
+		try {
+			m_Function();
+		}
+		catch (...) {}
+		[]() {
+		}();
+		while (true) {
+			ScriptYield();
+		}
+	}
 private:
-	void* m_script_fiber;
-	void* m_main_fiber;
-	func_t m_func;
-	std::optional<std::chrono::high_resolution_clock::time_point> m_wake_time;
+	void* m_ScriptFiber;
+	void* m_MainFiber;
+	Helper m_Function;
+	std::optional<std::chrono::high_resolution_clock::time_point> m_WakeTime;
 };
-
-#define TRY_CLAUSE  __try
-#define EXCEPT_CLAUSE  __except (script::script_exception_handler(GetExceptionInformation()), EXCEPTION_EXECUTE_HANDLER) { }
-#define QUEUE_JOB_BEGIN_CLAUSE(...) ClassPointers::cPool->queue_job([__VA_ARGS__] { __try
-#define QUEUE_JOB_END_CLAUSE __except (script::script_exception_handler(GetExceptionInformation()), EXCEPTION_EXECUTE_HANDLER) {} });

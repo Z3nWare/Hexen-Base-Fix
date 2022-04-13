@@ -18,8 +18,7 @@ namespace ClassPointers {
 	std::unique_ptr<Invoker> cInvoker = std::make_unique<Invoker>();
 	std::unique_ptr<Helpers> cHelpers = std::make_unique<Helpers>();
 	std::unique_ptr<DirectRender> cDX = std::make_unique<DirectRender>();
-	std::unique_ptr<script_mgr> cScripts = std::make_unique<script_mgr>();
-	std::unique_ptr<fiber_pool> cPool = std::make_unique<fiber_pool>();
+	std::unique_ptr<ScriptManager> cScripts = std::make_unique<ScriptManager>();
 	std::unique_ptr<TimerManager> cTimerMgr = std::make_unique<TimerManager>();
 
 	void ResetPointers() {
@@ -29,7 +28,6 @@ namespace ClassPointers {
 		cHelpers.reset();
 		cDX.reset();
 		cScripts.reset();
-		cPool.reset();
 		cTimerMgr.reset();
 	}
 }

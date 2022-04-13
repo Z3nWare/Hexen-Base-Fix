@@ -51,9 +51,6 @@
     <ClCompile Include="Invoker.cpp">
       <Filter>Native-Invoking</Filter>
     </ClCompile>
-    <ClCompile Include="Script.cpp">
-      <Filter>Script Manager</Filter>
-    </ClCompile>
     <ClCompile Include="Helpers.cpp">
       <Filter>Helpers</Filter>
     </ClCompile>
@@ -68,12 +65,6 @@
     </ClCompile>
     <ClCompile Include="fonts.hpp">
       <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="fiber_pool.cpp">
-      <Filter>Script Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="script_mgr.cpp">
-      <Filter>Script Manager</Filter>
     </ClCompile>
     <ClCompile Include="TimerManager.cpp">
       <Filter>Helpers</Filter>
@@ -185,10 +176,7 @@
     <ClInclude Include="Renderer.hpp">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="fiber_pool.hpp">
-      <Filter>Script Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="script_mgr.hpp">
+    <ClInclude Include="ScriptManager.hpp">
       <Filter>Script Manager</Filter>
     </ClInclude>
     <ClInclude Include="TimerManager.hpp">

@@ -1,5 +1,6 @@
 #pragma once
 #include "hooktables.hpp"
+#include "../Natives.hpp"
 #include "../CreatedThreads/threadtable.hpp"
 
 function_types::tGetNumberOfEvents oGetNumberOfEvents;
@@ -13,8 +14,14 @@ const char* hkGTA::hkGetLabelText(PVOID unk, const char* label) {
 	return oGetLabelText(unk, label);
 }
 
+namespace {std::uint32_t g_HookFrameCount{}; }
 int32_t hkGTA::hkGetNumberOfEvents(int32_t unk) {
-	ClassPointers::cScripts->tick();
+	if (!bUnInject && g_HookFrameCount != *ClassPointers::cPatterns->pFrameCount)
+	{
+		g_HookFrameCount = *ClassPointers::cPatterns->pFrameCount;
+		ClassPointers::cScripts->Tick();
+	}
+
 	return oGetNumberOfEvents(unk);
 }
 
